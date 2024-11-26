@@ -8,3 +8,4 @@ router.register('message',MessageViewset)
 urlpatterns = [
     path('api/', include(router.urls)),
 ]
+    
