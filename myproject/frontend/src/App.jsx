@@ -21,8 +21,23 @@ function App() {
 
       //Create websocket connection
       const socket = new WebSocket('ws://127.0.0.1:8000/ws/socket-server/');
-
-      socket.onmessage = (e) =>{
+      socket.onopen = () => {
+        console.log("WebSocket connection established");
+        };
+        
+        socket.onmessage = (event) => {
+            console.log("Message from server: ", event.data);
+        };
+        
+        socket.onclose = (event) => {
+            console.error("WebSocket closed: ", event);
+        };
+        
+        socket.onerror = (error) => {
+            console.error("WebSocket error: ", error);
+        };
+        
+          socket.onmessage = (e) =>{
         const msgData =  JSON.parse(e.data);
 
         setMessages((prevMessages)=>[...prevMessages,msgData]);
@@ -38,15 +53,16 @@ function App() {
         <div>
           {messages && messages.map((msg,idx)=>{
               <div key={idx}>{msg.content || msg.message}</div>
+              console.log("HIIII")
           })}
         </div>
-     
+        <button onClick={()=>console.log(newMessage)}>Send</button> 
         <input
         type="text"
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
       />
-      <button onClick={console.log("hello")}>Send</button> 
+
 
     </div>
   )

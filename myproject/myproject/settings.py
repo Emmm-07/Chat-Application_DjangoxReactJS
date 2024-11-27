@@ -50,12 +50,16 @@ ASGI_APPLICATION = 'myproject.asgi.application'
 #Configure Redis Channel Layer
 CHANNEL_LAYERS = {
     'default':{
-        'BACKEND':'channel_redis.core.RedisChannelLayer',
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
         'CONFIG':{
-            'host':[('127.0.0.1',6379)],    #Default Redis address
+            'hosts':[('127.0.0.1',6379)],    #Default Redis address
         }
     }
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Example: Frontend URL
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
