@@ -9,6 +9,15 @@ function App() {
   const [newMessage,setNewMessage] = useState('');
   const [ws,setWs] = useState(null);
 
+  const handleSendMessage = () => {
+    if (ws && newMessage.trim()) {
+        ws.send(JSON.stringify({ message: newMessage }));
+        setNewMessage(''); // Clear the input field
+      
+    }
+    
+  };
+
   useEffect(()=>{
      // Fetch messages from the API on load
       axios.get('/api/messages/'
@@ -20,30 +29,28 @@ function App() {
       })
 
       //Create websocket connection
-      const socket = new WebSocket('ws://127.0.0.1:8000/ws/socket-server/');
+      const socket = new WebSocket('ws://127.0.0.1:8000/ws/socketserver/');
+      setWs(socket);
       socket.onopen = () => {
         console.log("WebSocket connection established");
         };
         
-        socket.onmessage = (event) => {
-            console.log("Message from server: ", event.data);
-        };
-        
-        socket.onclose = (event) => {
-            console.error("WebSocket closed: ", event);
-        };
-        
-        socket.onerror = (error) => {
-            console.error("WebSocket error: ", error);
-        };
-        
-          socket.onmessage = (e) =>{
-        const msgData =  JSON.parse(e.data);
-
-        setMessages((prevMessages)=>[...prevMessages,msgData]);
+      socket.onmessage = (event) => {
+          console.log("Message from server: ", event.data.message);
+          const msgData =  JSON.parse(e.data);
+          setMessages((prevMessages)=>[...prevMessages,msgData]);
       };
-
-      return () => socket.close();
+      
+      socket.onclose = (event) => {
+          console.error("WebSocket closed: ", event);
+      };
+      
+      socket.onerror = (error) => {
+          console.error("WebSocket error: ", error);
+      };
+  
+      console.log("Hello there");
+      // return () => socket.close();
   },[])
 
   return (
@@ -56,7 +63,7 @@ function App() {
               console.log("HIIII")
           })}
         </div>
-        <button onClick={()=>console.log(newMessage)}>Send</button> 
+        <button onClick={handleSendMessage}>Send</button> 
         <input
         type="text"
         value={newMessage}
