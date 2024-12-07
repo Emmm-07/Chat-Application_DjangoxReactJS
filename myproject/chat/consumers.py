@@ -10,12 +10,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_group_name = f"chat_{self.room_name}"
 
         #Join room group
-        await self.channel_layer.group_add(
-            self.room_name,
-            self.room_group_name,
-        )
-        print("CONNECTED TO REDISS AND WEBSOCKET SERVER")
-        await self.accept()
+        try:
+            await self.channel_layer.group_add(
+                # self.room_name,
+                self.room_group_name,
+                self.channel_name,
+            )
+            print("CONNECTED TO REDISS AND WEBSOCKET SERVER")
+            await self.accept()
+        except Exception as e:
+            print("Error",e)
 
     
     async def disconnet(self):
@@ -33,15 +37,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json['message']
         
         # Send message to room group
-        await self.channel_layer.group_send(
-            self.room_group_name,
-            {
-                'type':'chat_message',
-                'message':message
-            }
-        )
-        print("MESSAGE RECEIVED")
-        print(message)  
+        try:
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'type':'chat_message',
+                    'message':message
+                }
+            )
+            print("MESSAGE RECEIVED")
+            print(message)  
+
+            # await self.send(text_data=json.dumps({
+            # 'message':message
+            # }))
+            # print("Message sent")
+        except Exception as e:
+            print("Error:",e)
         
 
     async def chat_message(self,event):
