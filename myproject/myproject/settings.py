@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&-xc8(x%du%ocxm-akdhe-sdr6a-$bs@ab!q(r4ktlw6-r^z-t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] #'192.168.43.218','localhost','127.0.0.1'
 
 
 # Application definition
@@ -55,12 +55,14 @@ CHANNEL_LAYERS = {
         'BACKEND':'channels_redis.core.RedisChannelLayer',
         'CONFIG':{
             'hosts':[('127.0.0.1',6379)],    #Default Redis address
+            # 'hosts':[('rediss://red-ctbf27a3esus739ik4gg:n9Sbpqb8yYD0nQdRlSLnbUXewTVRbTeR@oregon-redis.render.com:6379')], #Global address, deployed with render.com
         }
     }
 }
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Example: Frontend URL
+    "http://localhost:5173"
 ]
 
 MIDDLEWARE = [

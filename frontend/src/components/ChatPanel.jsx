@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react'
-import './index.css'
+import '../index.css'
 import axios from 'axios'
 
 const ChatPanel = () => {
