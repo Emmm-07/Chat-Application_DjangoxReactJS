@@ -10,7 +10,7 @@
 
 **Python**: For server-side scripting and managing the backend logic of the application.
 
-**Django**: Python framework for web development
+**Django**: Python framework for web and api development
 
 **ReactJS**: Javascript web framework to make  a responsive ui
 
