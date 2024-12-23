@@ -82,8 +82,8 @@ const ChatPanel = () => {
             <div className="chatContainer bg-white p-4 rounded shadow-md w-1/2">
             {/* Render messages */}
             {messages.map((msg, idx) => (
-                <div key={idx} className="border-b border-gray-300 py-2">
-                {msg.user}:{msg.message}
+                <div key={idx} className={`border-b border-gray-300 w-[40%] rounded-lg py-2 my-3 ${msg.user == user? 'bg-blue-500 ml-auto':'bg-gray-500'}`} >
+                  {msg.user}:{msg.message}
                 </div>
             ))}
             </div>
