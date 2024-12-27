@@ -1,5 +1,43 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { hostUrl } from "../../config";
+
 const Login = () => {
-    
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState(''); 
+    const navigate = useNavigate();
+
+    const handleLogin = async(e) =>{
+        e.preventDefault();
+        try{
+            const response = await fetch(hostUrl+'login',{
+                method: "POST",
+                headers:{
+                    "Content-Type" : 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                }),
+            });
+
+            const data = await response.json();
+            if(response.ok){
+                console.log("Log in Successful");
+                if(data.access){
+                    localStorage.setItem('access',data.access);
+                    localStorage.setItem('fn',data.firstname)
+                    console.log("access: "+data.access);
+                    navigate('/chat_panel')
+                }
+            }             
+        }catch(error){
+            console.log(error);
+        }
+
+    }
+
     return (  
         <>
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -8,11 +46,16 @@ const Login = () => {
         </div>
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form onSubmit={handleLogin}>
             <div>
-                <label for="email" className="block text-sm/6 font-medium text-gray-900">Email address</label>
+                <label for="username" className="block text-sm/6 font-medium text-gray-900">Email address</label>
                 <div className="mt-2">
-                <input type="email" name="email" id="email" autocomplete="email" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                <input className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    type="text" 
+                    required 
+                    value={username}
+                    onChange={(e)=>setUsername(e.target.value)}
+                />
                 </div>
             </div>
 
@@ -22,10 +65,15 @@ const Login = () => {
                 
                 </div>
                 <div className="mt-2">
-                <input type="password" name="password" id="password" autocomplete="current-password" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                <input type="password" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    autocomplete="current-password" 
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
+                    required 
+                />
                 </div>
                 <div className="text-sm">
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">No account yet?Signup</a>
+                    <Link to='/signup' className="font-semibold text-indigo-600 hover:text-indigo-500">No account yet?Signup</Link>
                 </div>
             </div>
 

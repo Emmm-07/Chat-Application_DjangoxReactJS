@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&-xc8(x%du%ocxm-akdhe-sdr6a-$bs@ab!q(r4ktlw6-r^z-t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [] #'192.168.43.218','localhost','127.0.0.1'
+ALLOWED_HOSTS = ['*','0.0.0.0'] #'192.168.43.218','localhost','127.0.0.1'
 
 
 # Application definition
@@ -86,12 +86,14 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'myproject.urls'

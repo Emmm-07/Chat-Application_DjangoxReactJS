@@ -6,7 +6,7 @@ const ChatPanel = () => {
     const [messages,setMessages] = useState([]);
     const [newMessage,setNewMessage] = useState('');
     const [ws,setWs] = useState(null);
-    const [user,setUser] = useState('');
+    const [user,setUser] = useState(localStorage.getItem('fn'));
   
     const handleSendMessage = () => {
       if (ws && newMessage.trim()) {
@@ -26,7 +26,7 @@ const ChatPanel = () => {
       //    console.log("Error fetching messages:", error);
       //  });
      
-  
+        setUser(localStorage.getItem('fn'))
         //Create websocket connection
         const socket = new WebSocket('ws://127.0.0.1:8000/ws/socketserver/');
         setWs(socket);
@@ -71,13 +71,14 @@ const ChatPanel = () => {
         <>
 
             <h1 className="text-white text-3xl font-bold">Chat Room</h1>
-            
+{/*             
             <input 
                 type="text" 
                 value={user}
                 onChange={(e) => setUser(e.target.value)}
                 // disabled={?true:false}
-            />
+            /> */}
+            <h2>Hello, {user}</h2>
 
             <div className="chatContainer bg-white p-4 rounded shadow-md w-1/2">
             {/* Render messages */}
