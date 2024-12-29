@@ -1,20 +1,25 @@
 import { useState,useEffect } from 'react'
 import '../index.css'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom'
 const ChatPanel = () => {
     const [messages,setMessages] = useState([]);
     const [newMessage,setNewMessage] = useState('');
     const [ws,setWs] = useState(null);
     const [user,setUser] = useState(localStorage.getItem('fn'));
-  
+    const navigate = useNavigate();
+    
     const handleSendMessage = () => {
       if (ws && newMessage.trim()) {
           ws.send(JSON.stringify({ message: newMessage, user: user }));
           setNewMessage(''); // Clear the input field
       }   
     };
-  
+    
+    const handleLogout = () =>{
+        localStorage.clear();
+        navigate("/login");
+    }
     useEffect(()=>{
        // Fetch messages from the API on load
       //  axios.get('/api/messages/')
@@ -103,6 +108,13 @@ const ChatPanel = () => {
                     Send
                 </button>
             </div>
+
+                <button
+                    onClick={handleLogout}
+                    className="bg-black text-white mt-11 px-4 py-2 rounded-full hover:bg-blue-600"
+                >
+                    Logout
+                </button>
         </>
     );
 }
