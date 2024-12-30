@@ -29,6 +29,7 @@ const Login = () => {
                 if(data.access){
                     localStorage.setItem('access',data.access); 
                     localStorage.setItem('fn',data.firstname);
+
                     console.log("access: "+data.access);
                     navigate('/chat_panel');
                     console.log("already navigated");

@@ -2,13 +2,14 @@ import { useState,useEffect } from 'react'
 import '../index.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+
 const ChatPanel = () => {
     const [messages,setMessages] = useState([]);
     const [newMessage,setNewMessage] = useState('');
     const [ws,setWs] = useState(null);
     const [user,setUser] = useState(localStorage.getItem('fn'));
     const navigate = useNavigate();
-    
+    const [friendList,setFriendList] = useState([]);
     const handleSendMessage = () => {
       if (ws && newMessage.trim()) {
           ws.send(JSON.stringify({ message: newMessage, user: user }));
@@ -30,10 +31,15 @@ const ChatPanel = () => {
       //  .catch(error => {
       //    console.log("Error fetching messages:", error);
       //  });
-     
+
+                                                                //GET the FriendList from backend +++++++++++++++++++
+        const token = localStorage.getItem('access');
         setUser(localStorage.getItem('fn'))
+      
+
+
         //Create websocket connection
-        const socket = new WebSocket('ws://127.0.0.1:8000/ws/socketserver/');
+        const socket = new WebSocket(`ws://127.0.0.1:8000/ws/socketserver/?token=${token}`);
         setWs(socket);
         socket.onopen = () => {
           console.log("WebSocket connection established");

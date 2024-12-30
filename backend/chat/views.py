@@ -28,10 +28,16 @@ def login(request):
     
     refresh = RefreshToken.for_user(user)
 
+ 
+    users = User.objects.exclude(id=user.id) 
+    serialized_users = UserSerializer(users, many=True).data
+
     return Response({
         "refresh":str(refresh),
         "access":str(refresh.access_token),
-        "firstname":str(user.first_name),
+        "firstname":str(user.first_name),  
+        "friendList":serialized_users     
+        #Add here the list of users ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     })
 
 
@@ -53,3 +59,7 @@ def signup (request):
         })
     
     return Response({'detail':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+
+
+# @api_view(['POST'])
+# def friendList(request):
