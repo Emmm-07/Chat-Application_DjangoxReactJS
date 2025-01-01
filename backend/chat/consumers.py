@@ -71,10 +71,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         user = text_data_json['user']
+        recipientId =  text_data_json['recipientId']
+        print("Recipient ID: ", recipientId)
         # Send message to room group
         try:
             await self.channel_layer.group_send(
-                "chat_chat_room_1",                     # Edit Here to specify to who is the recipient's ID ++++++++++
+                f"chat_chat_room_{recipientId}",                     # Edit Here to specify to who is the recipient's ID ++++++++++
                 
                 # self.room_group_name,
                 {

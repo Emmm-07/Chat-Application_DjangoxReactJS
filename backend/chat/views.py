@@ -29,14 +29,15 @@ def login(request):
     refresh = RefreshToken.for_user(user)
 
  
-    users = User.objects.exclude(id=user.id) 
-    serialized_users = UserSerializer(users, many=True).data
+    users = User.objects.exclude(id=user.id).values('id','first_name','last_name');
+    # serialized_users = UserSerializer(users, many=True).data
+
 
     return Response({
         "refresh":str(refresh),
         "access":str(refresh.access_token),
         "firstname":str(user.first_name),  
-        "friendList":serialized_users     
+        "friendList":list(users)   
         #Add here the list of users ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     })
 

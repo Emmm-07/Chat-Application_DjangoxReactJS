@@ -10,9 +10,11 @@ const ChatPanel = () => {
     const [user,setUser] = useState(localStorage.getItem('fn'));
     const navigate = useNavigate();
     const [friendList,setFriendList] = useState([]);
+    const [recipientId,setRecipientId] = useState(null);
+
     const handleSendMessage = () => {
       if (ws && newMessage.trim()) {
-          ws.send(JSON.stringify({ message: newMessage, user: user }));
+          ws.send(JSON.stringify({ message: newMessage, user: user, recipientId: recipientId }));   //+++++++++++++++++
           setNewMessage(''); // Clear the input field
       }   
     };
@@ -35,7 +37,11 @@ const ChatPanel = () => {
                                                                 //GET the FriendList from backend +++++++++++++++++++
         const token = localStorage.getItem('access');
         setUser(localStorage.getItem('fn'))
-      
+        var fList = localStorage.getItem('friendList');
+        fList = JSON.parse(fList);
+        setFriendList(fList);
+        console.log("Friendlist: ")
+        console.log(fList);
 
 
         //Create websocket connection
@@ -81,6 +87,20 @@ const ChatPanel = () => {
     return (  
         <>
 
+            <h2>Friend list:</h2>
+            {friendList.map((friend,idx)=>(
+                <>
+                <div key={idx}                                                        
+                    className='border hover:bg-white'
+                    // onClick={setRecipientId(friend.id)}              //Edit this to take ID per friend +++++++
+                >
+                    {friend.first_name} {friend.last_name}
+                </div>
+               
+                </>
+            ))
+
+            }
             <h1 className="text-white text-3xl font-bold">Chat Room</h1>
 {/*             
             <input 
