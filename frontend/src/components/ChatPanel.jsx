@@ -85,63 +85,61 @@ const ChatPanel = () => {
     },[])
   
     return (  
-        <>
+        <div className='grid grid-cols-2'>
+            <div className='border'>
+                <h2>Friend list:</h2>
+                {friendList.map((friend,idx)=>(
+                    <>
+                    <div key={idx}                                                        
+                        className='border hover:bg-white'
+                        onClick={()=>setRecipientId(friend.id)}              //Edit this to take ID per friend +++++++
+                    >
+                        {friend.first_name} {friend.last_name}
+                    </div>
+                
+                    </>
+                ))
 
-            <h2>Friend list:</h2>
-            {friendList.map((friend,idx)=>(
-                <>
-                <div key={idx}                                                        
-                    className='border hover:bg-white'
-                    onClick={()=>setRecipientId(friend.id)}              //Edit this to take ID per friend +++++++
-                >
-                    {friend.first_name} {friend.last_name}
-                </div>
-               
-                </>
-            ))
-
-            }
-            <h1 className="text-white text-3xl font-bold">Chat Room</h1>
-{/*             
-            <input 
-                type="text" 
-                value={user}
-                onChange={(e) => setUser(e.target.value)}
-                // disabled={?true:false}
-            /> */}
-            <h2>Hello, {user}</h2>
-
-            <div className="chatContainer bg-white p-4 rounded shadow-md w-1/2">
-            {/* Render messages */}
-            {messages.map((msg, idx) => (
-                <div key={idx} className={`border-b border-gray-300 w-[40%] rounded-lg py-2 my-3 ${msg.user == user? 'bg-blue-500 ml-auto':'bg-gray-500'}`} >
-                  {msg.user}:{msg.message}
-                </div>
-            ))}
+                }
             </div>
+            
+            <div className='border'>
+                <h1 className="text-white text-3xl font-bold">Chat Room</h1>
 
-            <div className="chatInput flex gap-2 mt-4">
-                <input
-                    type="text"
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    className="border p-2 rounded w-full"
-                />
-                <button
-                    onClick={handleSendMessage}
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                >
-                    Send
-                </button>
+                <h2>Hello, {user}</h2>
+
+                <div className="chatContainer bg-white p-4 rounded shadow-md w-1/2">
+                {/* Render messages */}
+                {messages.map((msg, idx) => (
+                    <div key={idx} className={`border-b border-gray-300 w-[40%] rounded-lg py-2 my-3 ${msg.user == user? 'bg-blue-500 ml-auto':'bg-gray-500'}`} >
+                    {msg.user}:{msg.message}
+                    </div>
+                ))}
+                </div>
+
+                <div className="chatInput flex gap-2 mt-4">
+                    <input
+                        type="text"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        className="border p-2 rounded w-full"
+                    />
+                    <button
+                        onClick={handleSendMessage}
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    >
+                        Send
+                    </button>
+                </div>
+
+                    <button
+                        onClick={handleLogout}
+                        className="bg-black text-white mt-11 px-4 py-2 rounded-full hover:bg-blue-600"
+                    >
+                        Logout
+                    </button>
             </div>
-
-                <button
-                    onClick={handleLogout}
-                    className="bg-black text-white mt-11 px-4 py-2 rounded-full hover:bg-blue-600"
-                >
-                    Logout
-                </button>
-        </>
+        </div>
     );
 }
  
