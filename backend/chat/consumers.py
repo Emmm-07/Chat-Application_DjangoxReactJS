@@ -83,7 +83,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             for recipient in recipients:
                 await self.channel_layer.group_send(
-                recipient,                     # Edit Here to specify to who is the recipient's ID ++++++++++
+                recipient,                     # Edit Here to specify to who is the recipient's ID 
                 
                 # self.room_group_name,
                 {
