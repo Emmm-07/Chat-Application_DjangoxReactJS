@@ -73,10 +73,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
         user = text_data_json['user']
         recipientId =  text_data_json['recipientId']
         print("Recipient ID: ", recipientId)
+        print("Usesr ID: ", self.user.id)
+
+        recipients = [
+            f"chat_chat_room_{recipientId}",
+            f"chat_chat_room_{self.user.id}"            # send also to self, to reflect what u sent
+        ]
         # Send message to room group
         try:
-            await self.channel_layer.group_send(
-                f"chat_chat_room_{recipientId}",                     # Edit Here to specify to who is the recipient's ID ++++++++++
+            for recipient in recipients:
+                await self.channel_layer.group_send(
+                recipient,                     # Edit Here to specify to who is the recipient's ID ++++++++++
                 
                 # self.room_group_name,
                 {
@@ -86,8 +93,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 }
             )
             print("MESSAGE RECEIVED")
-            print(message)  
-            print(user)
+ 
 
             # await self.send(text_data=json.dumps({
             # 'message':message

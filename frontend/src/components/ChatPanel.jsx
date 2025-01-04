@@ -92,7 +92,7 @@ const ChatPanel = () => {
                 <>
                 <div key={idx}                                                        
                     className='border hover:bg-white'
-                    // onClick={setRecipientId(friend.id)}              //Edit this to take ID per friend +++++++
+                    onClick={()=>setRecipientId(friend.id)}              //Edit this to take ID per friend +++++++
                 >
                     {friend.first_name} {friend.last_name}
                 </div>

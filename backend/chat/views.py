@@ -38,7 +38,7 @@ def login(request):
         "access":str(refresh.access_token),
         "firstname":str(user.first_name),  
         "friendList":list(users)   
-        #Add here the list of users ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  
     })
 
 
