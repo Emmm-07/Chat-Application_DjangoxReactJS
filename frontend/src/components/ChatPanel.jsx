@@ -11,7 +11,7 @@ const ChatPanel = () => {
     const navigate = useNavigate();
     const [friendList,setFriendList] = useState([]);
     const [recipientId,setRecipientId] = useState(null);
-
+    const [recipeintName,setRecipientName] = useState(null)
     const handleSendMessage = () => {
       if (ws && newMessage.trim()) {
           ws.send(JSON.stringify({ message: newMessage, user: user, recipientId: recipientId }));   //+++++++++++++++++
@@ -85,30 +85,41 @@ const ChatPanel = () => {
     },[])
   
     return (  
-        <div className='grid grid-cols-2'>
-            <div className='border'>
-                <h2>Friend list:</h2>
+        <div className='flex h-full border w-full rounded-xl relative'>
+            <div className='border w-[30%] rounded-l-xl p-5 relative space-y-6'>
                 {friendList.map((friend,idx)=>(
                     <>
                     <div key={idx}                                                        
-                        className='border hover:bg-white'
-                        onClick={()=>setRecipientId(friend.id)}           
+                        className={`border hover:bg-white flex space-x-5 px-4 py-2 rounded-xl cursor-pointer ${recipientId==friend.id? 'bg-white':'bg-transparent'}`}
+                        onClick={()=>{
+                            setRecipientId(friend.id);
+                            setRecipientName(`${friend.first_name} ${friend.last_name}`);
+                            setMessages([]);
+                        }}           
                     >
-                        {friend.first_name} {friend.last_name}
+                        <span className='w-14 h-14 border rounded-full bg-black'></span>
+                        <h2>{friend.first_name} {friend.last_name}</h2>
                     </div>
                 
                     </>
                 ))
 
                 }
+                <h2 className='absolute bottom-20'>{user}</h2>
+                <button
+                    onClick={handleLogout}
+                    className="bg-black text-white mt-11 px-4 py-2 rounded-full hover:bg-blue-600 absolute bottom-6"
+                >
+                    Logout
+                </button>
             </div>
             
-            <div className='border'>
-                <h1 className="text-white text-3xl font-bold">Chat Room</h1>
+            <div className='border w-[70%] rounded-r-xl p-5'>
+                <h1 className="text-white text-3xl font-bold">{recipeintName}</h1>
 
-                <h2>Hello, {user}</h2>
+               
 
-                <div className="chatContainer bg-white p-4 rounded shadow-md w-1/2">
+                <div className="chatContainer bg-white p-4 rounded shadow-md w-full h-[80%] overflow-y-auto mt-3">
                 {/* Render messages */}
                 {messages.map((msg, idx) => (
                     <div key={idx} className={`border-b border-gray-300 w-[40%] rounded-lg py-2 my-3 ${msg.user == user? 'bg-blue-500 ml-auto':'bg-gray-500'}`} >
@@ -117,12 +128,12 @@ const ChatPanel = () => {
                 ))}
                 </div>
 
-                <div className="chatInput flex gap-2 mt-4">
+                <div className="chatBox flex gap-2 mt-4 absolute bottom-4 w-[65%] mr-auto">
                     <input
                         type="text"
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
-                        className="border p-2 rounded w-full"
+                        className="border p-2 rounded w-full "
                     />
                     <button
                         onClick={handleSendMessage}
@@ -132,12 +143,7 @@ const ChatPanel = () => {
                     </button>
                 </div>
 
-                    <button
-                        onClick={handleLogout}
-                        className="bg-black text-white mt-11 px-4 py-2 rounded-full hover:bg-blue-600"
-                    >
-                        Logout
-                    </button>
+                 
             </div>
         </div>
     );
