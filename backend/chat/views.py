@@ -29,8 +29,8 @@ def login(request):
     refresh = RefreshToken.for_user(user)
 
  
-    friends = User.objects.exclude(id=user.id).values('id','first_name','last_name')
-    friends = friends.exclude(id=2)
+    friends = User.objects.exclude(id=user.id).exclude(is_superuser=True).values('id','first_name','last_name')
+
     # serialized_users = UserSerializer(users, many=True).data
 
 

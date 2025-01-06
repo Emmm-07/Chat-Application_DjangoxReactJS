@@ -3,6 +3,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.exceptions import InvalidToken
 from .models import Messages
+from django.contrib.auth.models import User
 from channels.db import database_sync_to_async
 from django.contrib.auth.models import AnonymousUser
 from asgiref.sync import sync_to_async
@@ -71,7 +72,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         user = text_data_json['user']
-        recipientId =  text_data_json['recipientId']
+        recipientId =  int(text_data_json['recipientId'])
+
+        sender =await sync_to_async(User.objects.get)(id=self.user.id)
+        recipient = await sync_to_async(User.objects.get)(id=recipientId)
+
         print("Recipient ID: ", recipientId)
         print("Usesr ID: ", self.user.id)
 
@@ -79,11 +84,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
             f"chat_chat_room_{recipientId}",
             f"chat_chat_room_{self.user.id}"            # send also to self, to reflect what u sent
         ]
+
+        
+        #Save message to database
+        await sync_to_async(Messages.objects.create)(
+            sender=sender,
+            recipient=recipient,
+            message=message,
+        )
+
+        print(sender)
+        print(recipient)
+        print(message)
         # Send message to room group
         try:
             for recipient in recipients:
                 await self.channel_layer.group_send(
-                recipient,                     # Edit Here to specify to who is the recipient's ID 
+                recipient,                     # Edit Here to specify to what is the recipient's ID 
                 
                 # self.room_group_name,
                 {

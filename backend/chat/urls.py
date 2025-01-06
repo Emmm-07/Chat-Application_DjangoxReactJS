@@ -4,7 +4,7 @@ from .views import MessageViewset
 from . import views
 
 router = DefaultRouter()
-router.register('message',MessageViewset)
+router.register('messages',MessageViewset)
 
 urlpatterns = [
     path('api/', include(router.urls)),

@@ -24,15 +24,16 @@ const ChatPanel = () => {
         navigate("/login");
     }
     useEffect(()=>{
-       // Fetch messages from the API on load
-      //  axios.get('/api/messages/')
-      //  .then(response => {
-      //   console.log("DATA: " + response.data)
-      //    setMessages(response.data); // Use response.data directly
-      //  })
-      //  .catch(error => {
-      //    console.log("Error fetching messages:", error);
-      //  });
+    //    Fetch messages from the API on load
+    //    axios.get('/api/messages/')
+    //    .then(response => {
+    //     console.log("DATA: " )
+    //     console.log(response.data);
+    //     //  setMessages(response.data); // Use response.data directly
+    //    })
+    //    .catch(error => {
+    //      console.log("Error fetching messages:", error);
+    //    });
 
                                                                 //GET the FriendList from backend +++++++++++++++++++
         const token = localStorage.getItem('access');
@@ -76,7 +77,6 @@ const ChatPanel = () => {
         
         socket.onerror = (error) => {
             console.error("WebSocket error: ", error);
-            alert("Error: Websocket server unreachable!");
         };
     
         console.log("Hello there");
