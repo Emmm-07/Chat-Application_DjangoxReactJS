@@ -7,7 +7,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState(''); 
     const navigate = useNavigate();
-   
+    const dateNow = new Date();    
 
     const handleLogin = async(e) =>{
         e.preventDefault(); 
@@ -28,9 +28,11 @@ const Login = () => {
                 console.log("Log in Successful");
                 if(data.access){
                     localStorage.setItem('access',data.access); 
+                    localStorage.setItem('loginTime', dateNow.getTime()); 
+                    
                     localStorage.setItem('fn',data.firstname);
                     localStorage.setItem('friendList',JSON.stringify(data.friendList));
-            
+                    
                     console.log("access: "+data.access);
                     navigate('/chat_panel');
                     console.log("already navigated");

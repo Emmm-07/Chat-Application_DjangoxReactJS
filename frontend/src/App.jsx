@@ -9,7 +9,35 @@ import PrivateRoute from './components/PrivateRoute'
 // to run on local network: npm run dev -- --host 0.0.0.0  
 
 function App() {
-  
+
+   const tokenLife = 86.4 * (10**6);    // 1 day in millis
+   const delay = 3.6 * (10**6);        // 1 hour in millis
+
+
+  useEffect(()=>{ 
+    
+    const checkTokenExpiration = () =>{
+        var timeNow = new Date(); 
+        timeNow = timeNow.getTime();   // time now in millis
+        const loginTime = localStorage.getItem('loginTime');
+        
+        if(loginTime && timeNow - loginTime > tokenLife){
+          // localStorage.removeItem('access');
+          // localStorage.removeItem('loginTime');
+          localStorage.clear()
+          setModalContent("Session expired, please Log in again");
+          setModalShow("block");
+          window.location.href = '/login';
+        }
+        console.log(timeNow - loginTime)
+    }
+
+    const interval = setInterval(checkTokenExpiration, delay);       //check every hour
+    checkTokenExpiration();
+
+    return () => {clearInterval(interval)};
+
+  },[]) 
 
   return (
 
