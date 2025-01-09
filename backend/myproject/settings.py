@@ -55,8 +55,9 @@ CHANNEL_LAYERS = {
     'default':{
         'BACKEND':'channels_redis.core.RedisChannelLayer',
         'CONFIG':{
-            'hosts':[('127.0.0.1',6379)],    #Default Redis address
+            # 'hosts':[('127.0.0.1',6379)],    #Default Redis address
             # 'hosts':[('rediss://red-ctbf27a3esus739ik4gg:n9Sbpqb8yYD0nQdRlSLnbUXewTVRbTeR@oregon-redis.render.com:6379')], #Global address, deployed with render.com
+            'hosts':[('redis://default:pskUFApUwlZvccwrfQZKBiBRSFjDKIhL@monorail.proxy.rlwy.net:14034')], #Global address, deployed with railway.com
         }
     }
 }
