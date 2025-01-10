@@ -1,0 +1,6 @@
+[submodule "ChatApp_Frontend"]
+	path = ChatApp_Frontend
+	url = https://github.com/Emmm-07/ChatApp_Frontend.git
+[submodule "ChatApp_Backend"]
+	path = ChatApp_Backend
+	url = https://github.com/Emmm-07/ChatApp_Backend.git

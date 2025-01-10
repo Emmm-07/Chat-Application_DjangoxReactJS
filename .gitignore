@@ -2,3 +2,4 @@ venv
 backend/chat/__pycache__
 backend/myproject/__pycache__
 TO DO.txt
+__pycache__/
