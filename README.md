@@ -15,5 +15,6 @@
 **ReactJS**: Javascript web framework to make  a responsive ui
 
 **Redis**: Used as realtime server / caching
+
 **SQLite**: Used as Database
 <br>
