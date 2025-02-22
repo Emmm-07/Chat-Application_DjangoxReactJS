@@ -2,19 +2,13 @@
 
 ## Technologies Used:
 
-**HTML**: For creating the structure and content of the web pages.
+**Tailwind CSS**: For styling the application with modern, responsive design.
 
-**CSS**: For styling the web pages and making them visually appealing.
+**JavaScript & React.js**: For building an interactive and dynamic user interface.
 
-**JavaScript**: For adding interactivity and dynamic behavior to the web pages.
+**Python & Django**: Manages backend logic and API development.
 
-**Python**: For server-side scripting and managing the backend logic of the application.
+**Redis**: Handles real-time data and caching.
 
-**Django**: Python framework for web and api development
-
-**ReactJS**: Javascript web framework to make  a responsive ui
-
-**Redis**: Used as realtime server / caching
-
-**SQLite**: Used as Database
+**SQLite**: Used as lightweight database for storing application data.
 <br>
