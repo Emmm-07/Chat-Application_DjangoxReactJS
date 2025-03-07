@@ -1,4 +1,5 @@
-# This is a Chat Application that uses WebSockets and Django Channels for real-time communication. The application provides seamless real-time messaging, online user status updates, and in-app notifications to enhance user engagement.
+# Chat App
+This is a Chat Application that uses WebSockets and Django Channels for real-time communication. The application provides seamless real-time messaging, online user status updates, and in-app notifications to enhance user engagement.
 
 ## Link
 [https://em-chat-three.vercel.app/](https://em-chat-three.vercel.app/)
