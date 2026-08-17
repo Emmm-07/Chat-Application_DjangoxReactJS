@@ -8,10 +8,17 @@ Note: On first boot up, you might sometimes experience a slow server response wh
 In general the servers on free tier plans go to sleep after 30 minutes of inactivity. And to “wake” them up again it takes about 1 minute.
 
 ## To run the Frontend in localhost
-../frontend > npm start
+- ../ChatApp_Frontend > npm start
 
 ## To run the backend / API in localhost
-../backend > python manage.py runserver
+use **python3.13.x** 
+- ../ChatApp_Backend 
+- python -m venv .venv or python3 -m venv .venv
+- source .venv/bin/activate
+- pip install -r requirements.txt
+- brew install redis
+- redis-server
+- python manage.py runserver
 
 ## Technologies Used:
 
@@ -21,7 +28,7 @@ In general the servers on free tier plans go to sleep after 30 minutes of inacti
 
 **Python & Django**: Manages backend logic and API development.
 
-**Redis**: Handles real-time data and caching.
+**Upstash Redis**: Handles real-time data and caching.
 
 **SQLite**: Used as lightweight database for storing application data.
 
